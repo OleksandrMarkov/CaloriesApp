@@ -1,43 +1,69 @@
---local bg = display.newImage("bg.jpg")
---bg.x = display.contentCenterX
---bg.y = display.contentCenterY
-
 display.setStatusBar(display.HiddenStatusBar)
 
 display.setDefault("background", 119 / 255, 15 / 255, 64 / 255) -- rgb
 display.setDefault("fillColor", 0)
---display.setDefault("background", 0) -- 0 = black, 0.5 = grey, 1 = white
---display.setDefault("background", 0.5, 0) -- 1st is color, 2nd is transperency(прозрачность: 0 - absolute transperency)
- 
-w = display.contentWidth - 20
+
+local widget = require("widget")
+
+w = display.contentWidth - 25
 weightMin = 40
 weightMax = 140
-weight = weightMin
+weight = 60
  
 local weightGroup = display.newGroup()
+weightGroup.y = 0
  
-circle = display.newCircle(weightGroup, display.contentCenterX, 54, 50) -- y = topY - 54, radius = 50
-circle:setFillColor(66 / 255, 135 / 255, 245 / 255)
+circle = display.newCircle(weightGroup, display.contentCenterX, 10, 40) -- y = topY - 15, radius = 50
+circle:setFillColor(1)
  
-rectangle = display.newRoundedRect(weightGroup, display.contentCenterX, 110, w, 100, 10 ) -- y = topY - 110, height = 100, radius = 15
-rectangle:setFillColor(66 / 255, 135 / 255, 245 / 255) 
+rectangle = display.newRoundedRect(weightGroup, display.contentCenterX, 30, w, 70, 10 ) -- y = topY - 110, height = 100, radius = 15
+rectangle:setFillColor(1) 
  
---weightGroup:removeSelf()
---display.remove(weightGroup) -- the same
-
--- by default X=Y=0
---weightGroup.y = 100
---weightGroup.x = 50
-
-display.newText(weightGroup, "Укажите вес в килограммах:", display.contentCenterX, 90, "SuezOne-Regular", 20) -- size = 20
+display.newText(weightGroup, "Укажите вес в килограммах:", display.contentCenterX, 15, "SuezOne-Regular", 15) -- size = 15
 
 local myWeight = display.newText({
 	parent = weightGroup,
-	fontSize = 35,
+	fontSize = 25,
 	text = weight,
 	x = display.contentCenterX,
-	y = 53,
+	y = -5,
 	font = "Obelix Pro", -- native.systemFont
 })
 
 myWeight: setFillColor(19 / 255, 3 / 255, 56 / 255)
+
+local optionSlider = {
+	frames = {
+	{ x = 0, y = 0, width = 15, height = 45},
+	{ x = 16, y = 0, width = 130, height = 45},
+	{ x = 332, y = 0, width = 15, height = 45},
+	{ x = 153, y = 0, width = 15, height = 45},
+	{ x = 353, y = 0, width = 47, height = 47},
+	},
+	sheetContentWidth = 400,
+	sheetContentHeight = 45
+}
+
+weightSlider = widget.newSlider{
+	sheet = graphics.newImageSheet("img/slider.png", optionSlider),
+	leftFrame = 1,
+	middleFrame = 2,
+	rightFrame = 3,
+	fillFrame = 4,
+	handleFrame = 5,
+	frameWidth = 15,
+	frameHeight = 45,
+	handleWidth = 45,
+	handleHeight = 45,
+	top = 20,
+	left = 61,
+	width = 200,
+	height = 47,
+	orientation = "horizontal",
+	value = 100 * (weight - weightMin) / (weightMax - weightMin),
+	
+	listener = function(event)
+		weight = math.round(weightMin + (weightMax - weightMin) * event.value / 100)
+		myWeight.text = weight
+	end
+}

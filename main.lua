@@ -110,3 +110,55 @@ weightPlusButton = widget.newButton{
 
 weightGroup:insert(weightMinusButton)
 weightGroup:insert(weightPlusButton)
+
+
+-----------------------
+
+sex = "Мужской"
+
+local sexGroup = display.newGroup()
+display.newRoundedRect(sexGroup, display.contentCenterX, 380, w, 120, 10):setFillColor(244/255)
+display.newText(sexGroup, "Укажите пол", 90, 360, "Obelix Pro", 16)
+
+sexSelect = display.newText(sexGroup, sex, 90, 400, "Obelix Pro", 14)
+sexSelect:setFillColor(0.4)
+
+maleOn = display.newImage(sexGroup, "img/male_active.png", 200, 380)
+maleOff = display.newImage(sexGroup, "img/male.png", 200, 380)
+femaleOn = display.newImage(sexGroup, "img/female_active.png", 270, 380)
+femaleOff = display.newImage(sexGroup, "img/female.png", 270, 380)
+
+
+if (sex == "Мужской") then
+	maleOff.isVisible = false
+	femaleOn.isVisible = false
+
+else
+	maleOn.isVisible = false
+	femaleOff.isVisible = false
+end
+
+function selectMale(event)
+	if (event.phase == "began") then
+		sex = "Мужской"
+		sexSelect.text = sex
+		maleOn.isVisible = true
+		femaleOff.isVisible = true
+		maleOff.isVisible = false
+		femaleOn.isVisible = false
+	end
+end
+
+function selectFemale(event)
+	if (event.phase == "began") then
+		sex = "Женский"
+		sexSelect.text = sex
+		maleOn.isVisible = false
+		femaleOff.isVisible = false
+		maleOff.isVisible = true
+		femaleOn.isVisible = true
+	end
+end
+
+maleOff:addEventListener("touch", selectMale)
+femaleOff:addEventListener("touch", selectFemale)

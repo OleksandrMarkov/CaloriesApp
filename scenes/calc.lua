@@ -6,7 +6,7 @@ local scene = composer.newScene()
 -- end
 
 function scene:show(event)
-	local sceneGroup = self.view;
+	local sceneGroup = self.view
 	local widget = require("widget")
 	
 	-- Weight
@@ -449,12 +449,37 @@ function scene:show(event)
 	--sexGroup:insert(femaleOff)
 	--sexGroup:insert(sex)
 	
+	
+	local activityGroup = display.newGroup()
+	rectangle5 = display.newRoundedRect(activityGroup, display.contentCenterX, blocksMarginTop + 430, blocksWidth, 50, RectCornerRounding)
+	rectangle5:setFillColor(whiteColor)
+	
+	--display.newPolygon(activityGroup, 290, 430, {500, 452, 520, 452, 510, 466}): setFillColor(blackColor)
+	polygon = display.newPolygon(activityGroup, 290, 435, {500, 452, 520, 452, 510, 466})
+	polygon: setFillColor(blackColor)
+	
+	local activityText = display.newText(activityGroup, activity_name, display.contentCenterX, 450, "Obelix Pro", 22)
+	activityText:setFillColor(blackColor)
+	
+	activityGroup: addEventListener("touch",
+	
+	function(event)
+		composer.showOverlay("scenes.activity", {
+		isModal = true,
+		effect = "fade",
+		time = 400,
+		})
+	end
+	
+	)
+	
 	-- adding all objects to sceneGroup
 	sceneGroup:insert(weightGroup)
 	sceneGroup:insert(sexGroup)
 	sceneGroup:insert(ageGroup)
 	sceneGroup:insert(heightGroup)
 	sceneGroup:insert(timeGroup)
+	sceneGroup:insert(activityGroup)
 end
 
 -- function scene:hide(event)

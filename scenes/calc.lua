@@ -15,24 +15,24 @@ function scene:show(event)
 	local weightGroup = display.newGroup()
 	weightGroup.y = 0
 	 
-	circle = display.newCircle(weightGroup, display.contentCenterX, 10, 40) -- y = topY - 15, radius = 50
-	circle:setFillColor(1)
+	circle = display.newCircle(weightGroup, display.contentCenterX, margin, circleRadius)
+	circle:setFillColor(whiteColor)
 	 
-	rectangle = display.newRoundedRect(weightGroup, display.contentCenterX, 30, w, 70, 10 ) -- y = topY - 110, height = 100, radius = 15
-	rectangle:setFillColor(1) 
+	rectangle = display.newRoundedRect(weightGroup, display.contentCenterX, blocksMarginTop, blocksWidth, blocksHeight, RectCornerRounding)
+	rectangle:setFillColor(whiteColor) 
 	 
-	display.newText(weightGroup, "Укажите вес в килограммах:", display.contentCenterX, 15, "SuezOne-Regular", 15) -- size = 15
+	display.newText(weightGroup, setWeightText, display.contentCenterX, margin, "SuezOne-Regular", setValueLabelFontSize)
 
 	local myWeight = display.newText({
 		parent = weightGroup,
-		fontSize = 25,
+		fontSize = valueFontSize,
 		text = weight,
 		x = display.contentCenterX,
-		y = -5,
+		y = valueLabelY,
 		font = "Obelix Pro", -- native.systemFont
 	})
-
-	myWeight: setFillColor(19 / 255, 3 / 255, 56 / 255)
+	
+	myWeight: setFillColor(unpack(numberValuesColor))
 
 	local optionSlider = {
 		frames = {
@@ -57,10 +57,10 @@ function scene:show(event)
 		frameHeight = 45,
 		handleWidth = 45,
 		handleHeight = 45,
-		top = 20,
-		left = 61,
-		width = 200,
-		height = 47,
+		top = sliderTop,
+		left = sliderLeft,
+		width = sliderWidth,
+		height = sliderHeight,
 		orientation = "horizontal",
 		value = 100 * (weight - weightMin) / (weightMax - weightMin),
 		
@@ -74,12 +74,13 @@ function scene:show(event)
 
 	weightMinusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 20, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 23, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		
+		labelColor = {default = {whiteColor}, over = {blackColor}},
 		label = "-",
 		
 		onPress = function(event)
@@ -93,12 +94,12 @@ function scene:show(event)
 
 	weightPlusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 275, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 272, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		labelColor = {default = {whiteColor}, over = {blackColor} },
 		label = "+",
 		
 		onPress = function(event)
@@ -117,38 +118,26 @@ function scene:show(event)
 	-----------------------------------------------------------------
 	--
 	local ageGroup = display.newGroup()
-	ageGroup.y = 200
+	ageGroup.y = 191
 	 
-	circle2 = display.newCircle(ageGroup, display.contentCenterX, 10, 40) -- y = topY - 15, radius = 50
-	circle2:setFillColor(1)
+	circle2 = display.newCircle(ageGroup, display.contentCenterX, margin, circleRadius)
+	circle2:setFillColor(whiteColor)
 	 
-	rectangle2 = display.newRoundedRect(ageGroup, display.contentCenterX, 30, w, 70, 10 ) -- y = topY - 110, height = 100, radius = 15
-	rectangle2:setFillColor(1) 
+	rectangle2 = display.newRoundedRect(ageGroup, display.contentCenterX, blocksMarginTop, blocksWidth, blocksHeight, RectCornerRounding)
+	rectangle2:setFillColor(whiteColor) 
 	 
-	display.newText(ageGroup, "Укажите возраст:", display.contentCenterX, 15, "SuezOne-Regular", 15) -- size = 15
+	display.newText(ageGroup, setAgeText, display.contentCenterX, margin, "SuezOne-Regular", setValueLabelFontSize)
 
 	local myAge = display.newText({
 		parent = ageGroup,
-		fontSize = 25,
+		fontSize = valueFontSize,
 		text = age,
 		x = display.contentCenterX,
-		y = -5,
+		y = valueLabelY,
 		font = "Obelix Pro", -- native.systemFont
 	})
 
-	myAge: setFillColor(19 / 255, 3 / 255, 56 / 255)
-
-	-- local optionSlider = {
-		-- frames = {
-		-- { x = 0, y = 0, width = 15, height = 45},
-		-- { x = 16, y = 0, width = 130, height = 45},
-		-- { x = 332, y = 0, width = 15, height = 45},
-		-- { x = 153, y = 0, width = 15, height = 45},
-		-- { x = 353, y = 0, width = 47, height = 47},
-		-- },
-		-- sheetContentWidth = 400,
-		-- sheetContentHeight = 45
-	-- }
+	myAge: setFillColor(unpack(numberValuesColor))
 
 	ageSlider = widget.newSlider{
 		sheet = graphics.newImageSheet("img/slider.png", optionSlider),
@@ -161,10 +150,10 @@ function scene:show(event)
 		frameHeight = 45,
 		handleWidth = 45,
 		handleHeight = 45,
-		top = 20,
-		left = 61,
-		width = 200,
-		height = 47,
+		top = sliderTop,
+		left = sliderLeft,
+		width = sliderWidth,
+		height = sliderHeight,
 		orientation = "horizontal",
 		value = 100 * (age - ageMin) / (ageMax - ageMin),
 		
@@ -178,12 +167,12 @@ function scene:show(event)
 
 	ageMinusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 20, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 23, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		labelColor = {default = {whiteColor}, over = {blackColor} },
 		label = "-",
 		
 		onPress = function(event)
@@ -197,12 +186,12 @@ function scene:show(event)
 
 	agePlusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 275, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 272, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		labelColor = {default = {whiteColor}, over = {blackColor} },
 		label = "+",
 		
 		onPress = function(event)
@@ -221,38 +210,26 @@ function scene:show(event)
 	-----------------------------------------------------------------
 	--
 	local heightGroup = display.newGroup()
-	heightGroup.y = 100
+	heightGroup.y = 96
 	 
-	circle3 = display.newCircle(heightGroup, display.contentCenterX, 10, 40) -- y = topY - 15, radius = 50
-	circle3:setFillColor(1)
+	circle3 = display.newCircle(heightGroup, display.contentCenterX, margin, circleRadius)
+	circle3:setFillColor(whiteColor)
 	 
-	rectangle3 = display.newRoundedRect(heightGroup, display.contentCenterX, 30, w, 70, 10 ) -- y = topY - 110, height = 100, radius = 15
-	rectangle3:setFillColor(1) 
+	rectangle3 = display.newRoundedRect(heightGroup, display.contentCenterX, blocksMarginTop,blocksWidth, blocksHeight, RectCornerRounding)
+	rectangle3:setFillColor(whiteColor) 
 	 
-	display.newText(heightGroup, "Укажите рост в см:", display.contentCenterX, 15, "SuezOne-Regular", 15) -- size = 15
+	display.newText(heightGroup, "Укажите рост в сантиметрах:", display.contentCenterX, margin, "SuezOne-Regular", setValueLabelFontSize)
 
 	local myHeight = display.newText({
 		parent = heightGroup,
-		fontSize = 25,
+		fontSize = valueFontSize,
 		text = height,
 		x = display.contentCenterX,
-		y = -5,
+		y = valueLabelY,
 		font = "Obelix Pro", -- native.systemFont
 	})
 
-	myHeight: setFillColor(19 / 255, 3 / 255, 56 / 255)
-
-	-- local optionSlider = {
-		-- frames = {
-		-- { x = 0, y = 0, width = 15, height = 45},
-		-- { x = 16, y = 0, width = 130, height = 45},
-		-- { x = 332, y = 0, width = 15, height = 45},
-		-- { x = 153, y = 0, width = 15, height = 45},
-		-- { x = 353, y = 0, width = 47, height = 47},
-		-- },
-		-- sheetContentWidth = 400,
-		-- sheetContentHeight = 45
-	-- }
+	myHeight: setFillColor(unpack(numberValuesColor))
 
 	heightSlider = widget.newSlider{
 		sheet = graphics.newImageSheet("img/slider.png", optionSlider),
@@ -265,10 +242,10 @@ function scene:show(event)
 		frameHeight = 45,
 		handleWidth = 45,
 		handleHeight = 45,
-		top = 20,
-		left = 61,
-		width = 200,
-		height = 47,
+		top = sliderTop,
+		left = sliderLeft,
+		width = sliderWidth,
+		height = sliderHeight,
 		orientation = "horizontal",
 		value = 100 * (height - heightMin) / (heightMax - heightMin),
 		
@@ -282,12 +259,12 @@ function scene:show(event)
 
 	heightMinusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 20, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 23, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		labelColor = {default = {whiteColor}, over = {blackColor} },
 		label = "-",
 		
 		onPress = function(event)
@@ -301,12 +278,12 @@ function scene:show(event)
 
 	heightPlusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 275, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 272, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		labelColor = {default = {whiteColor}, over = {blackColor} },
 		label = "+",
 		
 		onPress = function(event)
@@ -325,38 +302,26 @@ function scene:show(event)
 	-----------------------------------------------------------------
 	--
 	local timeGroup = display.newGroup()
-	timeGroup.y = 300
+	timeGroup.y = 286
 	 
-	circle4 = display.newCircle(timeGroup, display.contentCenterX, 10, 40) -- y = topY - 15, radius = 50
-	circle4:setFillColor(1)
+	circle4 = display.newCircle(timeGroup, display.contentCenterX, margin, circleRadius)
+	circle4:setFillColor(whiteColor)
 	 
-	rectangle4 = display.newRoundedRect(timeGroup, display.contentCenterX, 30, w, 70, 10 ) -- y = topY - 110, height = 100, radius = 15
-	rectangle4:setFillColor(1) 
+	rectangle4 = display.newRoundedRect(timeGroup, display.contentCenterX, blocksMarginTop, blocksWidth, blocksHeight, RectCornerRounding)
+	rectangle4:setFillColor(whiteColor) 
 	 
-	display.newText(timeGroup, "Укажите время в минутах:", display.contentCenterX, 15, "SuezOne-Regular", 15) -- size = 15
+	display.newText(timeGroup, setTimeText, display.contentCenterX, margin, "SuezOne-Regular", setValueLabelFontSize)
 
 	local myTime = display.newText({
 		parent = timeGroup,
-		fontSize = 25,
+		fontSize = valueFontSize,
 		text = currentTime,
 		x = display.contentCenterX,
-		y = -5,
+		y = valueLabelY,
 		font = "Obelix Pro", -- native.systemFont
 	})
 
-	myTime: setFillColor(19 / 255, 3 / 255, 56 / 255)
-
-	-- local optionSlider = {
-		-- frames = {
-		-- { x = 0, y = 0, width = 15, height = 45},
-		-- { x = 16, y = 0, width = 130, height = 45},
-		-- { x = 332, y = 0, width = 15, height = 45},
-		-- { x = 153, y = 0, width = 15, height = 45},
-		-- { x = 353, y = 0, width = 47, height = 47},
-		-- },
-		-- sheetContentWidth = 400,
-		-- sheetContentHeight = 45
-	-- }
+	myTime: setFillColor(unpack(numberValuesColor))
 
 	timeSlider = widget.newSlider{
 		sheet = graphics.newImageSheet("img/slider.png", optionSlider),
@@ -369,10 +334,10 @@ function scene:show(event)
 		frameHeight = 45,
 		handleWidth = 45,
 		handleHeight = 45,
-		top = 20,
-		left = 61,
-		width = 200,
-		height = 47,
+		top = sliderTop,
+		left = sliderLeft,
+		width = sliderWidth,
+		height = sliderHeight,
 		orientation = "horizontal",
 		value = 100 * (currentTime - timeMin) / (timeMax - timeMin),
 		
@@ -386,12 +351,12 @@ function scene:show(event)
 
 	timeMinusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 20, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 23, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		labelColor = {default = {whiteColor}, over = {blackColor} },
 		label = "-",
 		
 		onPress = function(event)
@@ -405,12 +370,12 @@ function scene:show(event)
 
 	timePlusButton = widget.newButton{
 		shape = 'roundedRect',
-		radius = 5,
-		width = 25, height = 25,
-		left = 275, top = 20,
-		fontSize = 40,
-		fillColor = {default = {76 / 255}, over = {150/255} },
-		labelColor = {default = {1}, over = {0} },
+		radius = littleButtonRadius,
+		width = littleButtonSide, height = littleButtonSide,
+		left = 272, top = littleButtonTop,
+		fontSize = littleButtonFontSize,
+		fillColor = {default = littleButtonDefaultColor, over = littleButtonOverColor },
+		labelColor = {default = {whiteColor}, over = {blackColor} },
 		label = "+",
 		
 		onPress = function(event)
@@ -428,20 +393,23 @@ function scene:show(event)
 		-- Sex
 	-----------------------------------------------------------------
 	--
-	sex = "Мужской"
+	sex = maleText
 	local sexGroup = display.newGroup()
-	display.newRoundedRect(sexGroup, display.contentCenterX, 420, w, 100, 10):setFillColor(244/255)
-	display.newText(sexGroup, "Укажите пол", 90, 400, "Obelix Pro", 16)
+	
+	rectangle5 = display.newRoundedRect(sexGroup, display.contentCenterX, 379, blocksWidth, blocksHeight, RectCornerRounding)
+	rectangle5:setFillColor(whiteColor)
+		
+	display.newText(sexGroup, chooseSexText, 90, 365, "Obelix Pro", 13)
 
-	sexSelect = display.newText(sexGroup, sex, 90, 420, "Obelix Pro", 14)
+	sexSelect = display.newText(sexGroup, sex, 90, 390, "Obelix Pro", 18)
 	sexSelect:setFillColor(0.4)
 
-	maleOn = display.newImage(sexGroup, "img/male_active.png", 200, 415)
-	maleOff = display.newImage(sexGroup, "img/male.png", 200, 415)
-	femaleOn = display.newImage(sexGroup, "img/female_active.png", 270, 415)
-	femaleOff = display.newImage(sexGroup, "img/female.png", 270, 415)
+	maleOn = display.newImage(sexGroup, "img/male_active.png", 200, 378)
+	maleOff = display.newImage(sexGroup, "img/male.png", 200, 378)
+	femaleOn = display.newImage(sexGroup, "img/female_active.png", 270, 378)
+	femaleOff = display.newImage(sexGroup, "img/female.png", 270, 378)
 
-	if (sex == "Мужской") then
+	if (sex == maleText) then
 		maleOff.isVisible = false
 		femaleOn.isVisible = false
 
@@ -452,7 +420,7 @@ function scene:show(event)
 
 	function selectMale(event)
 		if (event.phase == "began") then
-			sex = "Мужской"
+			sex = maleText
 			sexSelect.text = sex
 			maleOn.isVisible = true
 			femaleOff.isVisible = true
@@ -463,7 +431,7 @@ function scene:show(event)
 
 	function selectFemale(event)
 		if (event.phase == "began") then
-			sex = "Женский"
+			sex = femaleText
 			sexSelect.text = sex
 			maleOn.isVisible = false
 			femaleOff.isVisible = false

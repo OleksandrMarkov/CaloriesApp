@@ -4,7 +4,7 @@ display.setStatusBar(display.HiddenStatusBar)
 display.setDefault("background", 119 / 255, 15 / 255, 64 / 255) -- rgb
 display.setDefault("fillColor", 0)
 
---text constants
+-- text labels constants
 setWeightText = "Укажите вес в килограммах:"
 setHeightText = "Укажите рост в сантиметрах:"
 setAgeText = "Укажите возраст:"
@@ -14,7 +14,7 @@ maleText = "Мужской"
 femaleText = "Женский" 
 --
 
--- no-text constants
+-- users data values constants
 weightMin = 40
 weightMax = 180
 weight = 60
@@ -31,6 +31,14 @@ heightMin = 100
 heightMax = 220
 height = 170
 
+activity_name = "Ходьба, 4 км/ч"
+activity_factor = 3
+activity_index = 147
+
+--
+
+
+-- some constants for scene objects
 blocksWidth = display.contentWidth - 25
 margin = 1
 blocksHeight = 70

@@ -458,7 +458,7 @@ function scene:show(event)
 	polygon = display.newPolygon(activityGroup, 290, 435, {500, 452, 520, 452, 510, 466})
 	polygon: setFillColor(blackColor)
 	
-	local activityText = display.newText(activityGroup, activity_name, display.contentCenterX, 450, "Obelix Pro", 22)
+	activityText = display.newText(activityGroup, activity_name, display.contentCenterX, 450, native.systemFont, 15)
 	activityText:setFillColor(blackColor)
 	
 	activityGroup: addEventListener("touch",

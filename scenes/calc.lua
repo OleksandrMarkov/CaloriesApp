@@ -465,13 +465,35 @@ function scene:show(event)
 	
 	function(event)
 		composer.showOverlay("scenes.activity", {
-		isModal = true,
+		isModal = true, --modal window
 		effect = "fade",
 		time = 400,
 		})
 	end
 	
 	)
+	
+	
+	local buttonCalculate = widget.newButton{
+		shape = 'roundedRect',
+		radius = littleButtonRadius,
+		width = blocksWidth,
+		height = littleButtonSide,
+		left = 10,
+		top = 485,
+		fillColor = {default = {245/255, 77/255, 128/255}, over = {0, 149/255, 59/255} },
+		labelColor = {default = {whiteColor}, over = {whiteColor} },
+		label = "Расчитать калории",
+		fontSize = 20,
+		
+		onPress = function(event)
+			composer.showOverlay("scenes.results", {
+			isModal = true, 
+			effect = "fade",
+			time = 400,	
+			})
+		end	
+	}
 	
 	-- adding all objects to sceneGroup
 	sceneGroup:insert(weightGroup)
@@ -480,6 +502,8 @@ function scene:show(event)
 	sceneGroup:insert(heightGroup)
 	sceneGroup:insert(timeGroup)
 	sceneGroup:insert(activityGroup)
+	
+	sceneGroup:insert(buttonCalculate)
 end
 
 -- function scene:hide(event)

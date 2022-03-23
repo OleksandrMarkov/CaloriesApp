@@ -6,9 +6,8 @@ local data = require("scenes.data")
 
 function scene:create(event)
 	local sceneGroup = self.view
-	-- continuing: lesson 11, 12:00
 	
-	display.newRect(sceneGroup, display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight): setFillColor(37 / 255, 39 / 255, 46 / 255, 0.7)
+	display.newRect(sceneGroup, display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight): setFillColor(37 / 255, 39 / 255, 46 / 255, 0.8)
 	
 	function onRowRender(event)
 		local row = event.row
@@ -37,7 +36,7 @@ function scene:create(event)
 	end
 	
 	local activityList = widget.newTableView{
-		top = 0, left = 40, width = 460, height = 850, -- top = 70
+		top = 0, left = 40, width = 460, height = 1000, -- top = 70
 		onRowRender = onRowRender, -- show the list
 		onRowTouch = onRowTouch -- select an item
 	}

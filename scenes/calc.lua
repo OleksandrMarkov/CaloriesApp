@@ -1,6 +1,9 @@
 local composer = require("composer")
 local scene = composer.newScene()
 
+local json = require("json")
+
+
 -- function scene:create(event)
 	-- local sceneGroup = self.view;
 -- end
@@ -8,6 +11,19 @@ local scene = composer.newScene()
 function scene:show(event)
 	local sceneGroup = self.view
 	local widget = require("widget")
+	
+	settings = loadSetting("settings.json")
+	if(settings) then
+		weight = settings.weight
+		height = settings.height
+		age = settings.age
+		sex = settings.sex
+		currentTime = settings.time
+		activity_index = settings.activity_index
+		activity_name = settings.activity_name
+		activity_factor = settings.activity_factor
+	end
+	
 	
 	-- Weight
 	-----------------------------------------------------------------
@@ -494,7 +510,7 @@ function scene:show(event)
 			})
 		end	
 	}
-	
+		
 	-- adding all objects to sceneGroup
 	sceneGroup:insert(weightGroup)
 	sceneGroup:insert(sexGroup)
@@ -505,6 +521,21 @@ function scene:show(event)
 	
 	sceneGroup:insert(buttonCalculate)
 end
+
+	function loadSetting(fileName)
+		local path = system.pathForFile(fileName, system.ResourceDirectory)
+		local contents = ""
+		local myTable = {}
+		local file = io.open(path, "r")
+		
+		if (file) then
+			contents = file:read("*a")
+			myTable = json.decode(contents)
+			io.close(file)
+			return myTable
+		end
+		return nil	
+	end
 
 -- function scene:hide(event)
 	-- local sceneGroup = self.view;
